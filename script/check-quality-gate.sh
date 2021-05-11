@@ -1,27 +1,42 @@
 #!/bin/bash
 
+set -e
 
-ROOT="$(pwd)"
-source "$ROOT/common.sh"
+source "$(dirname "$0")/common.sh"
 
-metadata_file="${INPUT_SCAN_METADATA_REPORT_FILE}"
+if [[ -z "${SONAR_TOKEN}" ]]; then
+  echo "Set the SONAR_TOKEN env variable."
+  exit 1
+fi
 
-serverUrl="$(sed -n 's/serverUrl=\(.*\)/\1/p' $metadata_file)"
-ceTaskUrl="$(sed -n 's/ceTaskUrl=\(.*\)/\1/p' $metadata_file)"
-task="$(curl --silent --user $SONAR_TOKEN: $ceTaskUrl)"
+metadataFile="${INPUT_SCANMETADATAREPORTFILE}"
+
+if [[ ! -f "$metadataFile" ]]; then
+   echo "$metadataFile does not exist."
+   exit 1
+fi
+
+serverUrl="$(sed -n 's/serverUrl=\(.*\)/\1/p' $metadataFile)"
+ceTaskUrl="$(sed -n 's/ceTaskUrl=\(.*\)/\1/p' $metadataFile)"
+
+if [ -z "${serverUrl}" ] || [ -z "${ceTaskUrl}" ]; then
+  echo "Invalid report metadata file."
+  exit 1
+fi
+
+task="$(curl --silent --fail --show-error --user $SONAR_TOKEN: $ceTaskUrl)"
 status="$(jq -r '.task.status' <<< "$task")"
 
 until [[ ${status} != "PENDING" && ${status} != "IN_PROGRESS" ]]; do
     printf '.'
     sleep 1
-    task="$(curl --silent --user $SONAR_TOKEN: $ceTaskUrl)"
+    task="$(curl --silent --fail --show-error --user $SONAR_TOKEN: $ceTaskUrl)"
     status="$(jq -r '.task.status' <<< "$task")"
 done
 
 analysisId="$(jq -r '.task.analysisId' <<< "$task")"
-taskId="$(jq -r '.task.id' <<< "$task")"
 qualityGateUrl="${serverUrl}/api/qualitygates/project_status?analysisId=$analysisId"
-qualityGateStatus="$(curl --silent --user $SONAR_TOKEN: $qualityGateUrl | jq -r '.projectStatus.status')"
+qualityGateStatus="$(curl --silent --fail --show-error --user $SONAR_TOKEN: $qualityGateUrl | jq -r '.projectStatus.status')"
 
 if [[ ${qualityGateStatus} == "OK" ]];then
    success "Quality Gate has PASSED."
