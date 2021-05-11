@@ -11,7 +11,7 @@ inputs:
   args:
     description: Additional arguments to the Quality Gate check
     required: false
-  scanMetadataReportFile:
+  scan-metadata-report-file:
     description: Location of the scanner metadata report file
     required: false
-    default: ./.scannerwork/report-task.txt
+    default: .scannerwork/report-task.txt
