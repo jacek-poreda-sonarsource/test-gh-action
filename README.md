@@ -12,7 +12,7 @@ Repository with SonarQube analysis results.
 
 ## Usage
 
-The workflow, usually declared in `.github/workflows/build.yml`, should looks like:
+The workflow, usually declared in `.github/workflows/build.yml`, should look like this:
 
 ```yaml
 on:
@@ -47,7 +47,7 @@ jobs:
 
 ```
 
-You can change location of report metadata file by using the optional input `scanMetadataReportFile` like this:
+You can change the location of the report metadata file by using the optional `scanMetadataReportFile` input:
 
 ```yaml
 uses: sonarsource/sonarqube-scan-action@master
@@ -57,9 +57,9 @@ with:
 
 ### Secrets
 
-- `SONAR_TOKEN` – **Required** this is the token used to authenticate access to SonarQube. You can read more about security tokens [here](https://docs.sonarqube.org/latest/user-guide/user-token/). You should set the `SONAR_TOKEN` environment variable in the "Secrets" settings page of your repository.
+- `SONAR_TOKEN` – **Required** – this token is used to authenticate access to SonarQube. You can read more about security tokens [here](https://docs.sonarqube.org/latest/user-guide/user-token/). You need to set the `SONAR_TOKEN` environment variable in the "Secrets" settings page of your repository.
 
-## Example of pull request analysis
+## Pull request analysis example
 
 <img src="./images/SonarQube-analysis-in-Checks.png">
 
@@ -68,12 +68,12 @@ with:
 * You want to analyze a .NET solution. Read the documentation about our [Scanner for .NET](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-msbuild/).
 * You want to analyze C/C++ code. Read the documentation on [analyzing C/C++ code](https://docs.sonarqube.org/latest/analysis/languages/cfamily/).
 
-## Have question or feedback?
+## Have questions or feedback?
 
-To provide feedback (requesting a feature or reporting a bug) please post on the [SonarSource Community Forum](https://community.sonarsource.com/) with the tag `sonarqube-team`.
+To provide feedback (request a feature or report a bug), please post on the [SonarSource Community Forum](https://community.sonarsource.com/) with the tag `sonarqube-team`.
 
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are released under the LGPLv3 License.
 
-Container images built with this project include third party materials.
+Container images built with this project include third-party materials.
