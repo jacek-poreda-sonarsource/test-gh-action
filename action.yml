@@ -8,9 +8,6 @@ runs:
   using: docker
   image: Dockerfile
 inputs:
-  args:
-    description: Additional arguments to the Quality Gate check
-    required: false
   scanMetadataReportFile:
     description: Location of the scanner metadata report file
     required: false
