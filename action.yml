@@ -5,8 +5,10 @@ branding:
   icon: check
   color: green
 runs:
-  using: docker
-  image: Dockerfile
+  using: "composite"
+  steps:
+    - run: $GITHUB_ACTION_PATH/script/check-quality-gate.sh ${{ inputs.scanMetadataReportFile  }}
+      shell: bash
 inputs:
   scanMetadataReportFile:
     description: Location of the scanner metadata report file
