@@ -16,27 +16,27 @@ if [[ ! -f "$metadataFile" ]]; then
    exit 1
 fi
 
-serverUrl="$(sed -n 's/serverUrl=\(.*\)/\1/p' $metadataFile)"
-ceTaskUrl="$(sed -n 's/ceTaskUrl=\(.*\)/\1/p' $metadataFile)"
+serverUrl="$(sed -n 's/serverUrl=\(.*\)/\1/p' ${metadataFile})"
+ceTaskUrl="$(sed -n 's/ceTaskUrl=\(.*\)/\1/p' ${metadataFile})"
 
 if [ -z "${serverUrl}" ] || [ -z "${ceTaskUrl}" ]; then
   echo "Invalid report metadata file."
   exit 1
 fi
 
-task="$(curl --silent --fail --show-error --user $SONAR_TOKEN: $ceTaskUrl)"
+task="$(curl --silent --fail --show-error --user ${SONAR_TOKEN}: ${ceTaskUrl})"
 status="$(jq -r '.task.status' <<< "$task")"
 
 until [[ ${status} != "PENDING" && ${status} != "IN_PROGRESS" ]]; do
     printf '.'
     sleep 1
-    task="$(curl --silent --fail --show-error --user $SONAR_TOKEN: $ceTaskUrl)"
+    task="$(curl --silent --fail --show-error --user ${SONAR_TOKEN}: ${ceTaskUrl})"
     status="$(jq -r '.task.status' <<< "$task")"
 done
 
-analysisId="$(jq -r '.task.analysisId' <<< "$task")"
-qualityGateUrl="${serverUrl}/api/qualitygates/project_status?analysisId=$analysisId"
-qualityGateStatus="$(curl --silent --fail --show-error --user $SONAR_TOKEN: $qualityGateUrl | jq -r '.projectStatus.status')"
+analysisId="$(jq -r '.task.analysisId' <<< "${task}")"
+qualityGateUrl="${serverUrl}/api/qualitygates/project_status?analysisId=${analysisId}"
+qualityGateStatus="$(curl --silent --fail --show-error --user ${SONAR_TOKEN}: ${qualityGateUrl} | jq -r '.projectStatus.status')"
 
 if [[ ${qualityGateStatus} == "OK" ]];then
    success "Quality Gate has PASSED."
