@@ -11,6 +11,9 @@ teardown() {
 @test "fail when SONAR_TOKEN not provided" {
   run ./../script/check-quality-gate.sh
   [ "$status" -eq 1 ]
+  echo "TEST MESSAGE"
+  echo "$output"
+  echo "TEST MESSAGE"
   [ "$output" = "Set the SONAR_TOKEN env variable." ]
 }
 
