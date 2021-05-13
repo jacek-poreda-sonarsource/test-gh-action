@@ -6,4 +6,4 @@ before_install:
     - sudo ./bats-core/install.sh /usr/local
 script:
     - ls -la
-    - bats tests/check-quality-gate-test.bats
+    - bats test/check-quality-gate-test.bats
