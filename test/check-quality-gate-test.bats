@@ -1,6 +1,8 @@
 #!/usr/bin/env bats
 
 setup() {
+  DIR="$( cd "$( dirname "$BATS_TEST_FILENAME" )" >/dev/null 2>&1 && pwd )"
+  PATH="$DIR/../src:$PATH"
   touch metadata_tmp
 }
 
@@ -9,25 +11,22 @@ teardown() {
 }
 
 @test "fail when SONAR_TOKEN not provided" {
-  run ./../script/check-quality-gate.sh
+  run script/check-quality-gate.sh
   [ "$status" -eq 1 ]
-  echo "TEST MESSAGE"
-  echo "$output"
-  echo "TEST MESSAGE"
   [ "$output" = "Set the SONAR_TOKEN env variable." ]
 }
 
 @test "fail when metadata file not exist" {
   rm -f metadata_tmp
   export SONAR_TOKEN="test"
-  run ./../script/check-quality-gate.sh
+  run script/check-quality-gate.sh
   [ "$status" -eq 1 ]
   [ "$output" = " does not exist." ]
 }
 
 @test "fail when empty metadata file" {
   export SONAR_TOKEN="test"
-  run ./../script/check-quality-gate.sh metadata_tmp
+  run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 1 ]
   [ "$output" = "Invalid report metadata file." ]
 }
@@ -43,7 +42,7 @@ teardown() {
   }
   export -f curl
 
-  run ./../script/check-quality-gate.sh metadata_tmp
+  run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 1 ]
   [ "$output" = "\e[31m✖ Quality Gate not set for the project. Please configure the Quality Gate in SonarQube or remove sonarqube-quality-gate action from the workflow.\e[0m" ]
 }
@@ -64,7 +63,7 @@ teardown() {
   }
   export -f curl
 
-  run ./../script/check-quality-gate.sh metadata_tmp
+  run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 1 ]
   [ "$output" = "\e[33m✖ Warnings on Quality Gate.\e[0m" ]
 }
@@ -85,7 +84,7 @@ teardown() {
   }
   export -f curl
 
-  run ./../script/check-quality-gate.sh metadata_tmp
+  run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 1 ]
   [ "$output" = "\e[31m✖ Quality Gate has FAILED.\e[0m" ]
 }
@@ -106,7 +105,7 @@ teardown() {
   }
   export -f curl
 
-  run ./../script/check-quality-gate.sh metadata_tmp
+  run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 0 ]
   [ "$output" = "\e[32m✔ Quality Gate has PASSED.\e[0m" ]
 }
