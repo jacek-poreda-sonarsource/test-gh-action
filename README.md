@@ -70,10 +70,10 @@ with:
 
 ## Have questions or feedback?
 
-To provide feedback (request a feature or report a bug), please post on the [SonarSource Community Forum](https://community.sonarsource.com/) with the tag `sonarqube-team`.
+To provide feedback (request a feature or report a bug), please post on the [SonarSource Community Forum](https://community.sonarsource.com/) with the tag `sonarqube`.
 
 ## License
 
-The Dockerfile and associated scripts and documentation in this project are released under the LGPLv3 License.
+Scripts and documentation in this project are released under the LGPLv3 License.
 
 Container images built with this project include third-party materials.

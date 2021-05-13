@@ -1,6 +1,6 @@
 name: SonarQube Quality Gate Check
 description: >
-  Check if a project / analysis passed the quality gate check
+  Check if a project / analysis passed the Quality Gate check
 branding:
   icon: check
   color: green
