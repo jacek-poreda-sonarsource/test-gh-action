@@ -44,6 +44,9 @@ teardown() {
 
   run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 1 ]
+  echo "TEST MESSAGE"
+  echo $output
+  echo "TEST MESSAGE"
   [ "$output" = "\e[31m✖ Quality Gate not set for the project. Please configure the Quality Gate in SonarQube or remove sonarqube-quality-gate action from the workflow.\e[0m" ]
 }
 
