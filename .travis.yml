@@ -3,8 +3,7 @@ language: bash
 
 before_install:
     - git clone https://github.com/bats-core/bats-core.git
-    - cd bats-core
-    - sudo ./install.sh /usr/local
+    - sudo ./bats-core/install.sh /usr/local
 script:
     - ls -la
     - bats tests/check-quality-gate-test.bats
