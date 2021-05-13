@@ -47,7 +47,7 @@ teardown() {
   echo "TEST MESSAGE"
   echo $output
   echo "TEST MESSAGE"
-  [ "$output" = "\e[31m✖ Quality Gate not set for the project. Please configure the Quality Gate in SonarQube or remove sonarqube-quality-gate action from the workflow.\e[0m" ]
+  [[ "$output" = *"Quality Gate not set for the project. Please configure the Quality Gate in SonarQube or remove sonarqube-quality-gate action from the workflow."* ]]
 }
 
 @test "fail when Quality Gate status WARN" {
@@ -68,7 +68,7 @@ teardown() {
 
   run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 1 ]
-  [ "$output" = "\e[33m✖ Warnings on Quality Gate.\e[0m" ]
+  [[ "$output" = *"Warnings on Quality Gate."* ]]
 }
 
 @test "fail when Quality Gate status ERROR" {
@@ -89,7 +89,7 @@ teardown() {
 
   run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 1 ]
-  [ "$output" = "\e[31m✖ Quality Gate has FAILED.\e[0m" ]
+  [[ "$output" = *"Quality Gate has FAILED."* ]]
 }
 
 @test "pass when Quality Gate status OK" {
@@ -110,6 +110,6 @@ teardown() {
 
   run script/check-quality-gate.sh metadata_tmp
   [ "$status" -eq 0 ]
-  [ "$output" = "\e[32m✔ Quality Gate has PASSED.\e[0m" ]
+  [[ "$output" = *"Quality Gate has PASSED."* ]]
 }
 
