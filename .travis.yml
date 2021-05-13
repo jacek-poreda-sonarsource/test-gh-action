@@ -2,9 +2,9 @@ sudo: required
 language: bash
 
 before_install:
-    - apt-get update
-    - apt-get -y install jq
+    - sudo apt-get update
+    - sudo apt-get -y install jq
     - git clone https://github.com/bats-core/bats-core.git
-    - ./bats-core/install.sh /usr/local
+    - sudo ./bats-core/install.sh /usr/local
 script:
     - bats test/check-quality-gate-test.bats
