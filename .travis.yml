@@ -7,7 +7,4 @@ before_install:
     - git clone https://github.com/bats-core/bats-core.git
     - sudo ./bats-core/install.sh /usr/local
 script:
-    - ls -la script
-    - jq --version
-    - ./script/check-quality-gate.sh
     - bats test/check-quality-gate-test.bats
