@@ -9,7 +9,7 @@ if [[ -z "${SONAR_TOKEN}" ]]; then
   exit 1
 fi
 
-metadataFile="${INPUT_SCANMETADATAREPORTFILE}"
+metadataFile="$1"
 
 if [[ ! -f "$metadataFile" ]]; then
    echo "$metadataFile does not exist."

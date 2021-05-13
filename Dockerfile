@@ -1,7 +1,0 @@
-FROM alpine:3.13
-RUN apk update && apk add bash curl jq
-
-COPY script /usr/bin/
-RUN chmod 755 /usr/bin/check-quality-gate.sh
-
-ENTRYPOINT ["/usr/bin/check-quality-gate.sh"]
