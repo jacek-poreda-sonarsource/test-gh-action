@@ -12,10 +12,12 @@ jobs:
       - name: checkout action
         uses: actions/checkout@v2
         with:
+          path: main
           fetch-depth: 0
       - name: checkout bats-core
         uses: actions/checkout@v2
         with:
+          path: bats-core
           repository: bats-core/bats-core
           fetch-depth: 0
       - name: Install BATS test framework
