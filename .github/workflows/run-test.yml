@@ -23,6 +23,8 @@ jobs:
       - name: DEBUG
         run:
           ls -la
+      - name: DEBUG
+        run:
           ls -la bats-core
       - name: Install BATS test framework
         run:
