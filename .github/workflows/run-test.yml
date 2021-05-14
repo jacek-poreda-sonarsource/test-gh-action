@@ -28,7 +28,7 @@ jobs:
           ls -la bats-core
       - name: Install BATS test framework
         run:
-          ./bats-core/install.sh /usr/local
+          sudo ./bats-core/install.sh /usr/local
       - name: Execute BATS tests
         run:
           bats test/check-quality-gate-test.bats
