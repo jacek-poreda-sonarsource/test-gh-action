@@ -20,6 +20,10 @@ jobs:
           path: bats-core
           repository: bats-core/bats-core
           fetch-depth: 0
+      - name: DEBUG
+        run:
+          ls -la
+          ls -la bats-core
       - name: Install BATS test framework
         run:
           ./bats-core/install.sh /usr/local
