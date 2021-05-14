@@ -50,18 +50,14 @@ jobs:
 You can change the location of the report metadata file by using the optional `scanMetadataReportFile` input:
 
 ```yaml
-uses: sonarsource/sonarqube-scan-action@master
+uses: sonarsource/sonarqube-quality-gate-action@master
 with:
   scanMetadataReportFile: target/sonar/report-task.txt
 ```
 
-### Secrets
+### Environment variables
 
 - `SONAR_TOKEN` – **Required** – this token is used to authenticate access to SonarQube. You can read more about security tokens [here](https://docs.sonarqube.org/latest/user-guide/user-token/). You need to set the `SONAR_TOKEN` environment variable in the "Secrets" settings page of your repository.
-
-## Pull request analysis example
-
-<img src="./images/SonarQube-analysis-in-Checks.png">
 
 ## Do not use this GitHub action if you are in the following situations
 
